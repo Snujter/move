@@ -145,6 +145,10 @@ if __name__ == '__main__':
     for direction_data in google_maps_directions_config:
         csv_headers[direction_data['key']] = direction_data['label']
 
+    # create parent directories for CSV file if needed
+    csv_path = Path(config['CSV_FILE_PATH'])
+    csv_path.parent.mkdir(parents=True, exist_ok=True)
+
     logger.info("Saving CSV file")
     rightmove_scraper.save_results_to_csv(config['CSV_FILE_PATH'], csv_headers)
     logger.info("=== SCRIPT ENDED ===")
