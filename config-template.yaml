@@ -1,17 +1,17 @@
 # Rightmove URL of filtered properties
-RIGHTMOVE_URL: "https://www.rightmove.co.uk/property-to-rent/find.html?minBedrooms=1&keywords=&includeLetAgreed=true&channel=RENT&index=0&maxBedrooms=5&sortType=6&minPrice=100&viewType=LIST&maxPrice=40000&radius=0.25&maxDaysSinceAdded=14&locationIdentifier=STATION%5E9662"
+RIGHTMOVE_URL: https://www.rightmove.co.uk/property-to-rent/find.html?minBedrooms=1&keywords=&includeLetAgreed=true&channel=RENT&index=0&maxBedrooms=5&sortType=6&minPrice=100&viewType=LIST&maxPrice=40000&radius=0.25&maxDaysSinceAdded=14&locationIdentifier=STATION%5E9662
 
 # Absolute file path of the extracted property data CSV
-CSV_FILE_PATH: "data/move_data.csv"
+CSV_FILE_PATH: data/move_data.csv
 
 # Absolute file path of the base cache folder
-BASE_CACHE_FOLDER_PATH: "cache"
+BASE_CACHE_FOLDER_PATH: cache
 
 # API key for Google Maps - required to get directions data from the property to the destinations below.
 # An account can be set up from here - https://developers.google.com/maps
 # After setting up an account add the api key here.
 # Can be left as empty as well, in this case the script just won't use the API.
-GOOGLE_MAPS_API_KEY: ""
+GOOGLE_MAPS_API_KEY:
 
 # Directions to the endpoints for the Google Maps API to use.
 # Fields:
@@ -21,8 +21,8 @@ GOOGLE_MAPS_API_KEY: ""
 #   key: The unique identifier to be used in the dataframe
 #   label: The column name used in the CSV file
 GOOGLE_MAPS_DIRECTIONS_DATA:
-    - place_id: "ChIJ2dGMjMMEdkgRqVqkuXQkj7c"
-      mode: "driving"
+    - place_id: ChIJ2dGMjMMEdkgRqVqkuXQkj7c
+      mode: driving
       arrival_time: 1669626000 # Monday, November 28 2022 09:00:00 GMT+0000
-      key: "big_ben_car"
-      label: "Big Ben - driving"
+      key: big_ben_car
+      label: Big Ben - driving
