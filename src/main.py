@@ -20,6 +20,11 @@ def is_valid_config():
     with config_file.open("r") as f:
         config = yaml.safe_load(f)
 
+    # check if rightmove url is set up
+    if "RIGHTMOVE_URL" not in config:
+        logger.critical("RIGHTMOVE_URL: not found")
+        is_valid = False
+
     # check if csv file path is set up
     if "CSV_FILE_PATH" not in config:
         logger.critical("CSV_FILE_PATH: not found")
@@ -85,21 +90,7 @@ if __name__ == '__main__':
         config = yaml.safe_load(f)
         logger.info("Config loaded")
 
-    baseUrl = 'https://www.rightmove.co.uk/property-to-rent/find.html?'
-    params = {
-        'locationIdentifier': 'STATION^9686',
-        'maxBedrooms': 5,
-        'minBedrooms': 4,
-        'maxPrice': 2500,
-        'radius': 5.0,
-        'propertyTypes': '',
-        'includeLetAgreed': 'false',
-        'mustHave': '',
-        'dontShow': '',
-        'furnishTypes': '',
-        'keywords': '',
-    }
-    url = baseUrl + urllib.parse.urlencode(params)
+    url = config["RIGHTMOVE_URL"]
     logger.info(f"Calling scraper on url: {url}")
 
     # set up google maps api object and directions config

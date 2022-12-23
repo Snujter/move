@@ -1,3 +1,6 @@
+# Rightmove URL of filtered properties
+RIGHTMOVE_URL: "https://www.rightmove.co.uk/property-to-rent/find.html?minBedrooms=1&keywords=&includeLetAgreed=true&channel=RENT&index=0&maxBedrooms=5&sortType=6&minPrice=100&viewType=LIST&maxPrice=40000&radius=0.25&maxDaysSinceAdded=14&locationIdentifier=STATION%5E9662"
+
 # Absolute file path of the extracted property data CSV
 CSV_FILE_PATH: "data/move_data.csv"
 
