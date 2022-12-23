@@ -2,10 +2,57 @@ import urllib.parse
 import yaml
 import logging
 from datetime import date
+from pathlib import Path
 from src.apis import GoogleMapsApi
 from src.scrapers import RightmoveScraper
 from src.caches import FileCache
 from src.logging_setup import setup_logging
+
+
+def is_valid_config():
+    # check if file exists
+    config_file = Path('config.yaml')
+    if not config_file.is_file():
+        logger.critical(f"Configuration file {config_file} not found")
+        return False
+
+    is_valid = True
+    with config_file.open("r") as f:
+        config = yaml.safe_load(f)
+
+    # check if csv file path is set up
+    if "CSV_FILE_PATH" not in config:
+        logger.critical("CSV_FILE_PATH: not found")
+        is_valid = False
+
+    # check if cache folder path is set up
+    if "BASE_CACHE_FOLDER_PATH" not in config:
+        logger.critical("BASE_CACHE_FOLDER_PATH: not found")
+        is_valid = False
+
+    # check if directions data is in the config and in the proper format
+    if "GOOGLE_MAPS_DIRECTIONS_DATA" in config:
+        if type(config["GOOGLE_MAPS_DIRECTIONS_DATA"]) != list:
+            logger.critical("GOOGLE_MAPS_DIRECTIONS_DATA: has to be a list")
+            is_valid = False
+        else:
+            # check if all elements have valid keys (arrival_time is optional)
+            for (i, direction_config) in enumerate(config["GOOGLE_MAPS_DIRECTIONS_DATA"]):
+                number = i + 1
+                if "place_id" not in direction_config:
+                    logger.critical(f"GOOGLE_MAPS_DIRECTIONS_DATA #{number}: place_id needs to be provided")
+                    is_valid = False
+                if "mode" not in direction_config:
+                    logger.critical(f"GOOGLE_MAPS_DIRECTIONS_DATA #{number}: mode needs to be provided")
+                    is_valid = False
+                if "key" not in direction_config:
+                    logger.critical(f"GOOGLE_MAPS_DIRECTIONS_DATA #{number}: key needs to be provided")
+                    is_valid = False
+                if "label" not in direction_config:
+                    logger.critical(f"GOOGLE_MAPS_DIRECTIONS_DATA #{number}: label needs to be provided")
+                    is_valid = False
+
+    return is_valid
 
 
 if __name__ == '__main__':
@@ -29,10 +76,14 @@ if __name__ == '__main__':
 
     logger.info("=== SCRIPT STARTED ===")
 
+    if not is_valid_config():
+        logger.critical("INVALID CONFIG - EXITING")
+        exit()
+
     # load config data
-    f = open('config.yaml')
-    config = yaml.safe_load(f)
-    logger.info("Config loaded")
+    with Path('config.yaml').open("r") as f:
+        config = yaml.safe_load(f)
+        logger.info("Config loaded")
 
     baseUrl = 'https://www.rightmove.co.uk/property-to-rent/find.html?'
     params = {
@@ -91,7 +142,7 @@ if __name__ == '__main__':
         'floorplan_urls': 'Floorplans',
         'agent_url': 'Agent',
     }
-    for direction_data in config['GOOGLE_MAPS_DIRECTIONS_DATA']:
+    for direction_data in google_maps_directions_config:
         csv_headers[direction_data['key']] = direction_data['label']
 
     logger.info("Saving CSV file")
