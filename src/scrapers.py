@@ -325,8 +325,8 @@ class RightmoveScraper:
                 in_code = address_data.get('incode')
                 display_address = address_data.get('displayAddress', '')
                 display_address = display_address.replace(out_code, '').replace(in_code, '')  # remove post code
-                display_address = display_address.rstrip(',')  # remove pointless comma from end of string
                 display_address = replace_all_whitespaces(display_address)  # remove extra whitespaces
+                display_address = display_address.rstrip(',')  # remove pointless comma from end of string
 
                 full_address = []
                 if out_code or in_code:
