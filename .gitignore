@@ -1,0 +1,7 @@
+venv/
+cache/
+data/
+logs/
+.idea/
+src/__pycache__/
+config.yaml

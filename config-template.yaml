@@ -1,0 +1,25 @@
+# Absolute file path of the extracted property data CSV
+CSV_FILE_PATH: "data/move_data.csv"
+
+# Absolute file path of the base cache folder
+BASE_CACHE_FOLDER_PATH: "cache"
+
+# API key for Google Maps - required to get directions data from the property to the destinations below.
+# An account can be set up from here - https://developers.google.com/maps
+# After setting up an account add the api key here.
+# Can be left as empty as well, in this case the script just won't use the API.
+GOOGLE_MAPS_API_KEY: ""
+
+# Directions to the endpoints for the Google Maps API to use.
+# Fields:
+#   place_id: place id of the destination - you can get the place id for a location here: https://developers.google.com/maps/documentation/places/web-service/place-id
+#   mode: travel mode to the destination (https://developers.google.com/maps/documentation/directions/get-directions#mode)
+#   arrival_time: time of arrival at the destination (https://developers.google.com/maps/documentation/directions/get-directions#arrival_time)
+#   key: The unique identifier to be used in the dataframe
+#   label: The column name used in the CSV file
+GOOGLE_MAPS_DIRECTIONS_DATA:
+    - place_id: "ChIJ2dGMjMMEdkgRqVqkuXQkj7c"
+      mode: "driving"
+      arrival_time: 1669626000 # Monday, November 28 2022 09:00:00 GMT+0000
+      key: "big_ben_car"
+      label: "Big Ben - driving"
