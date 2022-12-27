@@ -71,7 +71,7 @@ if __name__ == '__main__':
         logfile_log_color=False,
         log_line_template="[{asctime},{msecs:0>3.0f}] "
                           "{color_on}{color_reverse}[{levelname:>8s}]{color_off}"
-                          "{color_on} {lineno:>4d} {name} :: {message:s}{color_off}",
+                          "{color_on} {message:s}{color_off} :: {name}({lineno})",
         libraries_log_level={
             "requests": logging.WARNING,
             "urllib3": logging.WARNING,
